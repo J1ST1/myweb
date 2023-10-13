@@ -1,0 +1,92 @@
+@charset "UTF-8";
+/*layout.css*/
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+body {
+    font: 20px 'Nanum Gothic',dotum, sans-serif;
+    line-height: 1.8;
+    color: #f5f6f7;
+}
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+    background-color: plum; /* Pink */
+    color: #ffffff;
+  }
+  .bg-2 { 
+    background-color: pink; /* Pink */
+    color: #555555;
+  }
+  .bg-3 { 
+    background-color: #ffffff; /* White */
+    color: #555555;
+  }
+  .bg-4 { 
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+  }
+  .container-fluid {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+  }
+
+  #mydiv {
+    position: relative;
+    margin: 0 auto;
+    width: 85%;       /*8) 가로 영역크기 줄이기*/
+    height: 30vh;
+    background-color: pink; /*9) 배경색 흰색으로 바꾸기*/
+    overflow: hidden;
+}
+
+
+#mydiv div{
+  width: 50%;
+  height: 100%;
+ }
+ #mydiv div img{
+  width: 200px;
+  height: 80%;
+ }
+
+
+
+ .bg-4{
+  width: 100%;
+  height: 100px;
+ }
+
+.btn{
+	background-color: indianred;
+	color: white;
+}
+.btn:hover {
+  background-color: lightcoral;
+  color: white;
+}
+
+.th{
+	text-align: center;
+	font-size: 18px;
+}
+
+ @media  screen  and (max-width:1000px){
+  #mydiv div img{
+    width: 80%;
+    height: 100%;
+   }
+ 
+  }
