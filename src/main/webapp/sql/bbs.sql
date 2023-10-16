@@ -54,4 +54,27 @@ values(bbs_seq.nextval, ?, ?, ?, ?, ?, (select nvl(max(bbsno), 0)+1 from tb_bbs)
 --전체목록
 select bbsno, wname, subject, readcnt, regdt, indent
 from tb_bbs
-order by grpno desc, ansnum asc;
+order by grpno desc, ansnum asc;.
+
+--전체 행갯수
+select count(*) as cnt from tb_bbs;
+
+--상세보기
+select * from tb_bbs where bbsno=?
+
+--조회수 증가
+update tb_bbs
+set readcnt = readcnt + 1
+where bbsno = ?
+
+
+--행삭제 bbsDel.jsp
+--비밀번호가 일치하면 삭제
+delete from tb_bbs
+where bbsno=? and passwd=?
+
+
+--행수정 bbsUpdate.jsp
+update tb_bbs set wname=?, subject=?, content=?, ip=?
+where bbsno=? and passwd=?
+
