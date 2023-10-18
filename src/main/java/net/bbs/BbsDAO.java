@@ -340,5 +340,164 @@ public class BbsDAO { //Data Access Object 데이터베이스 관련 작업
 		return cnt;
 		
 	}//count2() end
+	
+	
+	public ArrayList<BbsDTO> list2(String col, String word) {
+
+		ArrayList<BbsDTO> list = null;
+		
+		try {
+			con = dbopen.getConnection(); //오라클 DB 연결
+			
+			sql = new StringBuilder();
+			sql.append(" SELECT bbsno, wname, subject, readcnt, regdt, indent ");
+			sql.append(" FROM tb_bbs ");
+			
+			if(word.length()>=1) {//검색어가 존재한다면
+				String search = "";
+				if (col.equals("subject_content")) {
+					search += "WHERE subject LIKE '%" + word + "%' ";
+					search += "	  OR content LIKE '%" + word + "%' ";
+				}else if(col.equals("subject")) {
+					search += "WHERE subject LIKE '%" + word + "%' ";
+				}else if(col.equals("content")) {
+					search += "WHERE content LIKE '%" + word + "%' ";
+				}else if(col.equals("wname")) {
+					search += "WHERE wname LIKE '%" + word + "%' ";
+				}//if end
+				
+				sql.append(search);
+			
+			}//if end
+			
+			sql.append(" ORDER BY grpno DESC, ansnum ASC ");
+			
+			pstmt=con.prepareStatement(sql.toString());
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<BbsDTO>(); //전체 행을 저장
+				do {
+					//커서가 가리키는 한 줄 저장
+					BbsDTO dto = new BbsDTO();
+					dto.setBbsno(rs.getInt("bbsno"));
+					dto.setWname(rs.getString("wname"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setReadcnt(rs.getInt("readcnt"));
+					dto.setRegdt(rs.getString("regdt"));
+					dto.setIndent(rs.getInt("indent"));
+					
+					list.add(dto); //list에 저장
+					
+				} while (rs.next());
+				
+			}else {
+				list = null;
+			}//if end
+			
+		} catch (Exception e) {
+			System.out.println("목록 보기 실패 : " + e);
+		} finally {
+			DBClose.close(con, pstmt, rs);
+		}//end
+		
+		return list;
+		
+	}//list2() end
+	
+	public ArrayList<BbsDTO> list3(String col, String word, int nowPage, int recordPerPage){
+		
+		ArrayList<BbsDTO> list = null;
+		
+		//페이지당 출력할 행의 갯수(10개를 기준)
+        //1 페이지 : WHERE r>=1  AND r<=10;
+        //2 페이지 : WHERE r>=11 AND r<=20;
+        //3 페이지 : WHERE r>=21 AND r<=30;
+        int startRow = ((nowPage-1) * recordPerPage) + 1 ;
+        int endRow   = nowPage * recordPerPage;
+		
+		try {
+			con = dbopen.getConnection(); //오라클 DB 연결
+			
+			sql = new StringBuilder();
+			
+			word = word.trim();
+			
+			if(word.length()==0) {//검색어가 존재하지 않는 경우
+								  //bbs.sql의 페이징에서 6번 내용으로 쿼리문 작성
+				
+				sql.append(" SELECT * ");
+				sql.append(" FROM ( ");
+				sql.append(" SELECT bbsno, subject, wname, readcnt, indent, regdt, rownum as r ");
+				sql.append(" 	FROM( ");
+				sql.append(" 		SELECT bbsno, subject, wname, readcnt, indent, regdt ");
+				sql.append(" 		FROM tb_bbs ");
+				sql.append(" 		ORDER BY grpno DESC, ansnum ASC ");
+				sql.append(" 		) ");
+				sql.append(" 	) ");
+				sql.append(" WHERE r>=" + startRow + " AND r<=" + endRow );
+				
+			}else {
+				
+				sql.append(" SELECT * ");
+				sql.append(" FROM ( ");
+				sql.append(" SELECT bbsno, subject, wname, readcnt, indent, regdt, rownum as r ");
+				sql.append(" 	FROM( ");
+				sql.append(" 		SELECT bbsno, subject, wname, readcnt, indent, regdt ");
+				sql.append(" 		FROM tb_bbs ");
+				
+				String search = "";
+				if (col.equals("subject_content")) {
+					search += "WHERE subject LIKE '%" + word + "%' ";
+					search += "	  OR content LIKE '%" + word + "%' ";
+				}else if(col.equals("subject")) {
+					search += "WHERE subject LIKE '%" + word + "%' ";
+				}else if(col.equals("content")) {
+					search += "WHERE content LIKE '%" + word + "%' ";
+				}else if(col.equals("wname")) {
+					search += "WHERE wname LIKE '%" + word + "%' ";
+				}//if end
+				
+				sql.append(search);
+				sql.append(" 		ORDER BY grpno desc, ansnum asc ");
+				sql.append(" 		) ");
+				sql.append(" 	) ");
+				sql.append(" WHERE r>=" + startRow + " AND r<=" + endRow );
+				
+			}//if end
+			
+			pstmt=con.prepareStatement(sql.toString());
+			
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<BbsDTO>(); //전체 행을 저장
+				do {
+					//커서가 가리키는 한 줄 저장
+					BbsDTO dto = new BbsDTO();
+					dto.setBbsno(rs.getInt("bbsno"));
+					dto.setWname(rs.getString("wname"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setReadcnt(rs.getInt("readcnt"));
+					dto.setRegdt(rs.getString("regdt"));
+					dto.setIndent(rs.getInt("indent"));
+					
+					list.add(dto); //list에 저장
+					
+				} while (rs.next());
+				
+			}else {
+				list = null;
+			}//if end
+			
+		} catch (Exception e) {
+			System.out.println("목록 보기 실패 : " + e);
+		} finally {
+			DBClose.close(con, pstmt, rs);
+		}//end
+		
+		return list;
+		
+	}//list3() end
+	
 
 }//class end
