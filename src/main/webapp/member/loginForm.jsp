@@ -28,16 +28,16 @@
 <table class="table">
 	<tr>
 		<td>
-			<input type="text" name="id" id="id" value="<%=c_id%>" placeholder="아이디" maxlength="10" required>
+			<input type="text" class="form-control" name="id" id="id" value="<%=c_id%>" placeholder="아이디" maxlength="10" required>
 		</td>
 		<td rowspan="2">
 		    <!-- type=image는 기본속성이 submit -->
-		    <input type="image" src="../images/bt_login.gif">
+		    <input type="image" src="../images/bt_login.gif" class="img-rounded">
 		</td>
 	</tr>
 	<tr>
 		<td>
-		    <input type="password" name="passwd" id="passwd" placeholder="비밀번호" maxlength="10" required>
+		    <input type="password" class="form-control" name="passwd" id="passwd" placeholder="비밀번호" maxlength="10" required>
 		</td>
 	</tr>
 	<tr>
@@ -46,7 +46,20 @@
 		    &nbsp;&nbsp;&nbsp;
 		    <a href="agreement.jsp">회원가입</a>
 		    &nbsp;&nbsp;&nbsp;
-		    <a href="findID.jsp">아이디/비밀번호찾기</a>			    
+		    <a href="findID.jsp">아이디/비밀번호찾기</a>	
+			<!-- 
+			● [아이디/비번찾기] - findID.jsp
+			
+			1) 이름과 이메일을 입력받아서 일치가 되면 id를 가져오고
+			2) 임시 비밀번호를 발급해서
+			3) 아이디와 임시 비밀번호를 이메일로 전송하기
+			4) 임시비밀번호로 로그인 한 후,
+			   본인이 회원 정보 수정에서 비밀번호를 수정한다
+			   
+			● [임시 비밀번호 발급]
+			1) 대문자, 소문자, 숫자를 이용해서 랜덤하게 10글자를 만들기
+			2) 1)에서 생성된 임시 비밀번호를 테이블에서 수정하기 
+			-->		    
 		</td>
 	</tr>
 </table>

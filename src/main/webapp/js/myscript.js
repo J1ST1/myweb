@@ -217,4 +217,29 @@
     	return true;
     	
 	}//memeberCheck() end
-			
+	
+	
+	
+	  function findIDCheck(){//아이디/비번찾기 유효성 검사
+	  
+	  let mname = document.getElementById("mname").value;
+		mname = mname.trim();
+		if(mname.length<2){
+			alert("이름 2글자 이상 입력해 주세요");
+			document.getElementById("mname").focus();
+			return false;
+		}//if end
+	  
+	  let email = document.getElementById("email").value;
+		email = email.trim();
+		if(email.length<5){
+			alert("이메일 5글자 이상 입력해 주세요");
+			document.getElementById("email").focus();
+			return false;
+		}//if end
+		
+		return true;
+		
+	  }//findIDCheck end	
+	  
+	  
