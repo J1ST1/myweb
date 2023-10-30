@@ -5,8 +5,8 @@
 
 <!-- 본문 시작 pdsForm.jsp -->
 <h3> 사진 올리기 </h3>
-<p><a href="pdsList.jsp">[목록]</a></p>
-
+<button type="button" class="btn btn-default btn-lg btn-block" onclick="location.href = 'pdsList.jsp'">
+목록</button><br>
 <form method="post" action="pdsIns.jsp" enctype="multipart/form-data" onsubmit="return pdsCheck()">
 	<table class="table">
 	<tr>

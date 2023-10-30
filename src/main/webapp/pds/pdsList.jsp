@@ -7,7 +7,8 @@
 
 <!-- 본문 시작 pdsList.jsp -->
 <h3> 포토 갤러리 </h3>
-<p><a href="pdsForm.jsp">[사진올리기]</a></p>
+<button type="button" class="btn btn-default btn-lg btn-block" onclick="location.href = 'pdsForm.jsp'">
+사진 올리기</button><br>
 
 <%
 	ArrayList<PdsDTO> list = dao.list();
@@ -16,14 +17,14 @@
 	}else{
 		out.println("전체 글 갯수 : " + list.size());
 %>
-	<table class = "table table-hover">
+	<table class="table table-bordered table-hover">
 	<thead>
-		<tr class="success">
-			<th>제목</th>
-			<th>사진</th>
-			<th>조회수</th>
-			<th>작성자</th>
-			<th>작성일</th>
+		<tr>
+			<th class="th">제목</th>
+			<th class="th">사진</th>
+			<th class="th">조회수</th>
+			<th class="th">작성자</th>
+			<th class="th">작성일</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -32,7 +33,7 @@
 			dto = list.get(i);
 %>
 				<tr>
-					<td><%=dto.getSubject()%></td>
+					<td><a href="pdsRead.jsp?pdsno=<%=dto.getPdsno()%>"><%=dto.getSubject()%></a></td>
 					<td><img src="../storage/<%=dto.getFilename()%>" width="50" height="40"></td>
 					<td><%=dto.getReadcnt()%></td>
 					<td><%=dto.getWname()%></td>

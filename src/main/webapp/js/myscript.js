@@ -293,7 +293,27 @@
 				return false;
 			}//if end
 		}//if end
-
-		  return true;
 		  
-		}//pdsCheck end
+	}//pdsCheck end
+		
+		
+	function pwCheck2(){
+		let passwd = document.getElementById("passwd").value;
+			passwd = passwd.trim();
+			if(passwd.length<4 || isNaN(passwd)){
+				alert("비밀번호 4~15글자 이내 숫자로 입력해 주세요");
+				document.getElementById("passwd").focus();
+				return false;
+			}//if end
+			
+	 	let massage = "첨부파일도 삭제됩니다\n계속 진행할까요?";
+			if(confirm(massage)){//확인 true, 취소 false
+				return true;
+			}else{
+				return false;
+		}//if end
+	}//pwCheck2 end
+		
+		
+		
+		
